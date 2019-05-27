@@ -10,11 +10,10 @@
 import psycopg2
 
 
-
 def top_three_articles():
     db = psycopg2.connect("dbname=news")
     c = db.cursor()
-    query =  """select a.title, count(l.path) as views
+    query = """select a.title, count(l.path) as views
         from articles a, log l where l.path like '%' || a.slug
         group by a.title
         order by views desc limit 3"""
