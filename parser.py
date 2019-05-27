@@ -20,10 +20,21 @@ def top_three_articles():
         order by views desc limit 3"""
     c.execute(query)
     print(c.fetchall())
+    db.close()
 
 
 def top_authors():
-    print("Not yet implemented.")
+    db = psycopg2.connect("dbname=news")
+    c = db.cursor()
+    query = """select auth.name, count(l.path) as views
+        from articles art, log l, authors auth
+        where l.path like '%' || art.slug
+        and art.author = auth.id
+        and l.status = '200 OK'
+        group by auth.name
+        order by views desc"""
+    c.execute(query)
+    print(c.fetchall())
 
 
 def high_error_days():
