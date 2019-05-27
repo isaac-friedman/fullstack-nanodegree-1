@@ -15,6 +15,7 @@ def top_three_articles():
     c = db.cursor()
     query = """select a.title, count(l.path) as views
         from articles a, log l where l.path like '%' || a.slug
+        and l.status = '200 OK'
         group by a.title
         order by views desc limit 3"""
     c.execute(query)
