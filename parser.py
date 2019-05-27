@@ -9,11 +9,17 @@
 
 import psycopg2
 
-DBNAME = "news"
 
 
 def top_three_articles():
-    print("Not yet implemented.")
+    db = psycopg2.connect("dbname=news")
+    c = db.cursor()
+    query =  """select a.title, count(l.path) as views
+        from articles a, log l where l.path like '%' || a.slug
+        group by a.title
+        order by views desc limit 3"""
+    c.execute(query)
+    print(c.fetchall())
 
 
 def top_authors():
