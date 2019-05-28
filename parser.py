@@ -47,11 +47,14 @@ def high_error_days():
     # TODO: Create a list of errors to put in the query so it will work in a
     # real world scenario.
 
-    query = """select DATE(time) as days, count(status) as errors
+    query = """with t as (select DATE(time) as date, ROUND((count
+        (case when
+            status != '200 OK' then time
+        end) / count(status)::float * 100)::numeric, 3) percent_error
         from log
-        where status = '404 NOT FOUND'
-        group by days
-        order by errors desc"""
+        group by date)
+        select * from t where percent_error > 1
+        """
     c.execute(query)
     print(c.fetchall())
     db.close()
