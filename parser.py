@@ -35,10 +35,26 @@ def top_authors():
         order by views desc"""
     c.execute(query)
     print(c.fetchall())
+    db.close()
 
 
 def high_error_days():
-    print("Not yet implemented.")
+    db = psycopg2.connect("dbname=news")
+    c = db.cursor()
+    # We can get a performance boost by searching for "404 NOT FOUND" string
+    # literal instead of doing string matching because it happens that our
+    # database only contains 404 and 200 statuses.
+    # TODO: Create a list of errors to put in the query so it will work in a
+    # real world scenario.
+
+    query = """select DATE(time) as days, count(status) as errors
+        from log
+        where status = '404 NOT FOUND'
+        group by days
+        order by errors desc"""
+    c.execute(query)
+    print(c.fetchall())
+    db.close()
 
 
 def write_out(filename, content):
@@ -46,6 +62,6 @@ def write_out(filename, content):
 
 
 if __name__ == '__main__':
-    top_three_articles()
-    top_authors()
+    # top_three_articles()
+    # top_authors()
     high_error_days()
