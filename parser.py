@@ -58,7 +58,12 @@ def high_error_days():
 
 
 if __name__ == '__main__':
-    db = psycopg2.connect("dbname=news")
+    try:
+        db = psycopg2.connect("dbname=news")
+    except psycopg2.Error as e:
+        print("Connection failed returning a {} error".format(e.pgcode))
+        print("For more information see official Postgres documentation.")
+        exit()
     c = db.cursor()
     top_three_articles()
     top_authors()
