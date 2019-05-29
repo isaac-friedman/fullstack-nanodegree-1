@@ -47,11 +47,6 @@ def top_authors():
 def high_error_days():
     db = psycopg2.connect("dbname=news")
     c = db.cursor()
-    # We can get a performance boost by searching for "404 NOT FOUND" string
-    # literal instead of doing string matching because it happens that our
-    # database only contains 404 and 200 statuses.
-    # TODO: Create a list of errors to put in the query so it will work in a
-    # real world scenario.
 
     query = """with t as (select DATE(time) as date, ROUND((count
         (case when
