@@ -66,10 +66,6 @@ def high_error_days():
     print('\n'.join(["\t{} -- {}% errors".format(key, value) for (key, value) in results]))
 
 
-def write_out(filename, content):
-    print("Not yet implemented.")
-
-
 if __name__ == '__main__':
     top_three_articles()
     top_authors()
