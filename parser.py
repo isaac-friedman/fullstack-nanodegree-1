@@ -14,7 +14,7 @@ def top_three_articles():
     db = psycopg2.connect("dbname=news")
     c = db.cursor()
     query = """select a.title, count(l.path) as views
-        from articles a, log l where l.path like '%' || a.slug
+        from articles a, log l where l.path = '/article/' || a.slug
         and l.status = '200 OK'
         group by a.title
         order by views desc limit 3"""
@@ -28,7 +28,7 @@ def top_authors():
     c = db.cursor()
     query = """select auth.name, count(l.path) as views
         from articles art, log l, authors auth
-        where l.path like '/article/' || art.slug
+        where l.path = '/article/' || art.slug
         and art.author = auth.id
         and l.status = '200 OK'
         group by auth.name
@@ -65,6 +65,6 @@ def write_out(filename, content):
 
 
 if __name__ == '__main__':
-    # top_three_articles()
+    top_three_articles()
     top_authors()
-    # high_error_days()
+    high_error_days()
