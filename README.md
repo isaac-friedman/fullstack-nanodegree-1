@@ -22,7 +22,8 @@ python >= 3.5.2
 ### Installing  
 1. Download sample Postgres database [here](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip).  
 2. Extract the `newsdata.sql` file.  
-3. In the directory where you just extracted the file, run `psql -d news -f newsdata.sql`  
+3. In the directory where you just extracted the file, run   
+`psql -d news -f newsdata.sql`  
 4. Get this script onto your machine. clone this repository using   
 `git clone https://github.com/isaac-friedman/fullstack-nanodegree-1.git` or download as a zip and extract.  
 You can even open the script on GitHub and just copy-paste.
