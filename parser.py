@@ -35,8 +35,13 @@ def top_authors():
         group by auth.name
         order by views desc"""
     c.execute(query)
-    print(c.fetchall())
+    results = c.fetchall()
     db.close()
+    print("\n\nOur authors in order of total views:")
+    # The following list comprehension is PEP8 compliant see
+    # https://bit.ly/2o9NIZk
+    print('\n'.join(["{} -- {} views".format(key,value) for (key, value) in results]))
+
 
 
 def high_error_days():
