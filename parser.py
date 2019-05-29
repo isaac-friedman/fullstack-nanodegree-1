@@ -19,9 +19,8 @@ def top_three_articles():
     c.execute(query)
     results = c.fetchall()
     print("The Three Most Viewed Articles:")
-    # The following list comprehension is PEP8 compliant see
-    # https://bit.ly/2o9NIZk
-    print('\n'.join(["\t{} -- {} views".format(key, value) for (key, value) in results]))
+    print('\n'.join(["\t{} -- {} views".format(key, value)
+                    for (key, value) in results]))
 
 
 def top_authors():
@@ -35,9 +34,8 @@ def top_authors():
     c.execute(query)
     results = c.fetchall()
     print("\n\nOur authors in order of total views:")
-    # The following list comprehension is PEP8 compliant see
-    # https://bit.ly/2o9NIZk
-    print('\n'.join(["\t{} -- {} views".format(key, value) for (key, value) in results]))
+    print('\n'.join(["\t{} -- {} views".format(key, value)
+                    for (key, value) in results]))
 
 
 def high_error_days():
@@ -52,9 +50,8 @@ def high_error_days():
     c.execute(query)
     results = c.fetchall()
     print("\n\nDays where more than 1% of requests resulted in errors:")
-    # The following list comprehension is PEP8 compliant see
-    # https://bit.ly/2o9NIZk
-    print('\n'.join(["\t{} -- {}% errors".format(key, value) for (key, value) in results]))
+    print('\n'.join(["\t{} -- {}% errors".format(key, value)
+                    for (key, value) in results]))
 
 
 if __name__ == '__main__':
