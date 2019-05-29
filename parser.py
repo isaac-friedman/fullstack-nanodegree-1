@@ -19,9 +19,10 @@ def top_three_articles():
         group by a.title
         order by views desc limit 3"""
     c.execute(query)
-    print(c.fetchall())
+    results = c.fetchall()
     db.close()
-
+    print("The Three Most Viewed Articles:")
+    print('\n'.join(["{} -- {} views".format(key,value) for (key, value) in results]))
 
 def top_authors():
     db = psycopg2.connect("dbname=news")
