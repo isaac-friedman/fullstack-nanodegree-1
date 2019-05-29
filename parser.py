@@ -47,7 +47,6 @@ def top_authors():
 def high_error_days():
     db = psycopg2.connect("dbname=news")
     c = db.cursor()
-
     query = """with t as (select DATE(time) as date, ROUND((count
         (case when
             status != '200 OK' then time
@@ -57,8 +56,12 @@ def high_error_days():
         select * from t where percent_error > 1
         """
     c.execute(query)
-    print(c.fetchall())
+    results = c.fetchall()
     db.close()
+    print("\n\nDays where more than 1% of requests resulted in errors:")
+    # The following list comprehension is PEP8 compliant see
+    # https://bit.ly/2o9NIZk
+    print('\n'.join(["{} -- {}% errors".format(key,value) for (key, value) in results]))
 
 
 def write_out(filename, content):
