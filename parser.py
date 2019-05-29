@@ -11,8 +11,6 @@ import psycopg2
 
 
 def top_three_articles():
-    db = psycopg2.connect("dbname=news")
-    c = db.cursor()
     query = """select a.title, count(l.path) as views
         from articles a, log l where l.path = '/article/' || a.slug
         and l.status = '200 OK'
@@ -20,7 +18,6 @@ def top_three_articles():
         order by views desc limit 3"""
     c.execute(query)
     results = c.fetchall()
-    db.close()
     print("The Three Most Viewed Articles:")
     # The following list comprehension is PEP8 compliant see
     # https://bit.ly/2o9NIZk
@@ -28,8 +25,6 @@ def top_three_articles():
 
 
 def top_authors():
-    db = psycopg2.connect("dbname=news")
-    c = db.cursor()
     query = """select auth.name, count(l.path) as views
         from articles art, log l, authors auth
         where l.path = '/article/' || art.slug
@@ -39,7 +34,6 @@ def top_authors():
         order by views desc"""
     c.execute(query)
     results = c.fetchall()
-    db.close()
     print("\n\nOur authors in order of total views:")
     # The following list comprehension is PEP8 compliant see
     # https://bit.ly/2o9NIZk
@@ -47,8 +41,6 @@ def top_authors():
 
 
 def high_error_days():
-    db = psycopg2.connect("dbname=news")
-    c = db.cursor()
     query = """with t as (select DATE(time) as date, ROUND((count
         (case when
             status != '200 OK' then time
@@ -59,7 +51,6 @@ def high_error_days():
         """
     c.execute(query)
     results = c.fetchall()
-    db.close()
     print("\n\nDays where more than 1% of requests resulted in errors:")
     # The following list comprehension is PEP8 compliant see
     # https://bit.ly/2o9NIZk
@@ -67,6 +58,9 @@ def high_error_days():
 
 
 if __name__ == '__main__':
+    db = psycopg2.connect("dbname=news")
+    c = db.cursor()
     top_three_articles()
     top_authors()
     high_error_days()
+    db.close()
