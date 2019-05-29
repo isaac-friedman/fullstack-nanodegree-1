@@ -31,3 +31,6 @@ typing `python parser.py`
 
 ### Authors  
 * __Isaac Friedman__
+
+### Acknowledgements
+* Thanks to Clarence S. on the Udacity forum for help optimizing one of the queries.
