@@ -24,7 +24,7 @@ def top_three_articles():
     print("The Three Most Viewed Articles:")
     # The following list comprehension is PEP8 compliant see
     # https://bit.ly/2o9NIZk
-    print('\n'.join(["{} -- {} views".format(key,value) for (key, value) in results]))
+    print('\n'.join(["\t{} -- {} views".format(key,value) for (key, value) in results]))
 
 def top_authors():
     db = psycopg2.connect("dbname=news")
@@ -42,7 +42,7 @@ def top_authors():
     print("\n\nOur authors in order of total views:")
     # The following list comprehension is PEP8 compliant see
     # https://bit.ly/2o9NIZk
-    print('\n'.join(["{} -- {} views".format(key,value) for (key, value) in results]))
+    print('\n'.join(["\t{} -- {} views".format(key,value) for (key, value) in results]))
 
 
 
@@ -63,7 +63,7 @@ def high_error_days():
     print("\n\nDays where more than 1% of requests resulted in errors:")
     # The following list comprehension is PEP8 compliant see
     # https://bit.ly/2o9NIZk
-    print('\n'.join(["{} -- {}% errors".format(key,value) for (key, value) in results]))
+    print('\n'.join(["\t{} -- {}% errors".format(key,value) for (key, value) in results]))
 
 
 def write_out(filename, content):
