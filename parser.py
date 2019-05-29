@@ -22,6 +22,8 @@ def top_three_articles():
     results = c.fetchall()
     db.close()
     print("The Three Most Viewed Articles:")
+    # The following list comprehension is PEP8 compliant see
+    # https://bit.ly/2o9NIZk
     print('\n'.join(["{} -- {} views".format(key,value) for (key, value) in results]))
 
 def top_authors():
